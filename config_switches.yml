@@ -1,0 +1,22 @@
+---
+- name: Configure lab switches
+  hosts: lab_switches
+  gather_facts: no
+  connection: network_cli
+  collection: cisco.ios
+
+  tasks:
+    - name: Configure switch hostname
+      ios_config:
+        lines:
+          - hostname {{ inventory_hostname }}
+      
+    - name: Create VLANs 2,3,4
+      ios_config:
+        lines:
+          - vlan 2
+          - name VLAN_2
+          - vlan 3
+          - name VLAN_3
+          - vlan 4
+          - name VLAN_4
